@@ -2,9 +2,9 @@
 // Selection de l'utilisateur
 var user = "Hana"
 // Definition de la taille du svg
-const margin = { top: 0, right: 30, bottom: 20, left: 10 },
-width = 1200,
-height = 500;
+const margin = { top: 0, right: 30, bottom: 10, left: 10 },
+width = 1300,
+height = 300;
 
 var svg = d3.select("#visu1")
             .append("svg")
@@ -15,59 +15,52 @@ var svg = d3.select("#visu1")
 
 
  // 2 . Chargement des donnéels    
-
 d3.json("../data/viewing_activity.json").then(function(json) {
 
   adjancencymatrix = json.filter(function(row){
-    return (row["Profile Name"] == user);
+    return (row["ProfileName"] == user);
   });
-
-  console.log(adjancencymatrix);
 
   // 3. Créer un domaine pour notre échelle
   const max_weight = d3.max(adjancencymatrix, function (d) {
         return parseInt(d.Duration);
       });
   
-  console.log(max_weight)
 
   var scale = d3.scaleQuantize() 
   .domain([0, max_weight])
   .range(d3.schemeReds[9]); // donné par D3html
 
-  // 6. Créer une nouvelle échelle ordinale
-
-  //var zoneScale = d3.scaleOrdinal(d3.schemeCategory10)
 
   // échelle 
   //var positionsDates = d3.range(85); //longuer liste
 
   echellex = d3.scaleBand()
-    .range([0,width]) // TODO correspond [0, largeur du dessin]
-    .domain(d3.range(52)) 
+    .range([0,width-100]) // TODO correspond [0, largeur du dessin]
+    .domain(d3.range(week_days.length)) 
     .paddingInner(0.1) 
     .round(true);
   
   echelley = d3.scaleBand()
-    .range([0,height]) // TODO correspond [0, largeur du dessin]
+    .range([0,height-150]) // TODO correspond [0, largeur du dessin]
     .domain(d3.range(7)) 
     .paddingInner(0.1) 
     .align(0)
     .round(true);
 
   // 4. Afficher une 1e matrice d'adjacence
-  matrixViz = d3.select("svg").append("g").attr("transform", "translate(55, 55)");
+  matrixViz = d3.select("svg").append("g").attr("transform", "translate(70,   50)");
 
   matrixViz.selectAll()
   .data(adjancencymatrix)
   .join("rect")
-  .attr("width", 20)
-  .attr("height", 20)
+  .attr("width", echellex.bandwidth())
+  .attr("height", echelley.bandwidth())
   .attr("x", function (d) {
-    return (d.Week * 20);
+    return echellex(d.Week);
   })
   .attr("y", function (d) {
-    return (d.Day * 20);
+    return echelley(d.Day);
   })
   .style("stroke", "black")
   .style("stroke-width", ".3px")
@@ -76,39 +69,41 @@ d3.json("../data/viewing_activity.json").then(function(json) {
   })
   
 
-  /*labels = d3.select("svg")
+  labels = d3.select("svg")
     .append("g")
-    .attr("transform", "translate(60, 60)")
+    .attr("transform", "translate(70, 50)")
     .style("font-size", "8px")
     .style("font-family", "sans-serif");
 
   jours = ["Lundi","Mardi", "Mercredi", "Jeudi","Vendredi","Samedi","Dimanche"]
-  columns = labels
+
+  rows = labels
     .append("g")
     .selectAll()
     .data(jours)
     .join("text")
-    .text(function(d,i) {
-      return d[i];
-    })
-    .attr("dy",function(d,i) {
-      return echellexy(d[i]);
-    })
-    .attr("dx", 5)
-    .attr("transform", "rotate(-90)"); // on tourne tout l'axe de 90°*/
-
-  /*rows = labels
-    .append("g")
-    .selectAll()
-    .data(json.nodes)
-    .join("text")
     .text(function(d) {
-      return d.character;
+      return d;
     })
     .attr("dy",function(d) {
-      return echellexy(d.id);
+      return echelley(jours.indexOf(d)) + 15;
     })
-    .attr("dx", -5)
-    .attr("text-anchor", "end");*/
+    .attr("text-anchor", "end");
+  
+  columns = labels
+    .append("g")
+    .selectAll()
+    .data(week_days)
+    .join("text")
+    .text(function(d) {
+      console.log(d);
+      return d;
+    })
+    .attr("dy",function(d) {
+      return echellex(week_days.indexOf(d)) + 10;
+    })
+    .attr("dx", 3)
+    .attr("transform", "rotate(-90)"); // on tourne tout l'axe de 90°*/
+  
 });
 
