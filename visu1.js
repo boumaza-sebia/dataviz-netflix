@@ -14,20 +14,29 @@ var svg = d3.select("#visu1")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
- // 2 . Chargement des donnéels    
+// 2 . Chargement des donnéels
+var myjson = {};
+var echellex;
+var echelley;
+var matrixViz;
+var rows;
+var columns;
+var scale;
+var max_weight;
+  
 d3.json("../data/viewing_activity.json").then(function(json) {
-
+  myjson = json;
   adjancencymatrix = json.filter(function(row){
     return (row["ProfileName"] == user);
   });
 
   // 3. Créer un domaine pour notre échelle
-  const max_weight = d3.max(adjancencymatrix, function (d) {
+  max_weight = d3.max(adjancencymatrix, function (d) {
         return parseInt(d.Duration);
       });
   
 
-  var scale = d3.scaleQuantize() 
+  scale = d3.scaleQuantize() 
   .domain([0, max_weight])
   .range(d3.schemeReds[9]); // donné par D3html
 
@@ -96,7 +105,6 @@ d3.json("../data/viewing_activity.json").then(function(json) {
     .data(week_days)
     .join("text")
     .text(function(d) {
-      console.log(d);
       return d;
     })
     .attr("dy",function(d) {
@@ -106,4 +114,42 @@ d3.json("../data/viewing_activity.json").then(function(json) {
     .attr("transform", "rotate(-90)"); // on tourne tout l'axe de 90°*/
   
 });
+
+function update (){
+  user= Array.from(document.getElementsByName("inlineRadioOptions")).find(r => r.checked).value;
+
+  adjancencymatrix = myjson.filter(function(row){
+    return (row["ProfileName"] == user);
+  });
+
+  // 3. Créer un domaine pour notre échelle
+  max_weight = d3.max(adjancencymatrix, function (d) {
+    return parseInt(d.Duration);
+  });
+
+
+  scale = d3.scaleQuantize() 
+  .domain([0, max_weight])
+  .range(d3.schemeReds[9]); // donné par D3html
+
+  matrixViz.selectAll("rect")
+  .data(adjancencymatrix)
+  .join("rect")
+  .transition()
+  .duration(1000)
+  .attr("width", echellex.bandwidth())
+  .attr("height", echelley.bandwidth())
+  .attr("x", function (d) {
+    return echellex(d.Week);
+  })
+  .attr("y", function (d) {
+    return echelley(d.Day);
+  })
+  .style("stroke", "black")
+  .style("stroke-width", ".3px")
+  .style("fill", function (d) {
+    return scale(d.Duration);
+  })
+
+}
 
