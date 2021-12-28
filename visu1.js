@@ -29,13 +29,16 @@ function updateHover(e, d) {
   var mousePosition = [e.x, e.y];
   //console.log(mousePosition);
   // on affiche le toolip
+  var title = '';
+  d.Title.forEach(t => title = title.concat(t + "\n"));
   tooltip.classed('hidden', false)
   // on positionne le tooltip en fonction 
   // de la position de la souris
       .attr('style', 'left:' + (mousePosition[0] + 15) +
         'px; top:' + (mousePosition[1] - 35) + 'px')
-      // on recupere le nom de l'etat 
-      .html(d.Title);
+      // on recupere le nom de l'etat
+      
+      .html(title);
 }
 
 // ajout d'un tooltip
