@@ -23,7 +23,26 @@ var rows;
 var columns;
 var scale;
 var max_weight;
-  
+
+function updateHover(e, d) {
+  // e est l'object event d
+  var mousePosition = [e.x, e.y];
+  //console.log(mousePosition);
+  // on affiche le toolip
+  tooltip.classed('hidden', false)
+  // on positionne le tooltip en fonction 
+  // de la position de la souris
+      .attr('style', 'left:' + (mousePosition[0] + 15) +
+        'px; top:' + (mousePosition[1] - 35) + 'px')
+      // on recupere le nom de l'etat 
+      .html(d.Title);
+}
+
+// ajout d'un tooltip
+var tooltip = d3.select('body').append('div')
+.attr('class', 'hidden tooltip');
+
+
 d3.json("../data/viewing_activity.json").then(function(json) {
   myjson = json;
   adjancencymatrix = json.filter(function(row){
@@ -76,6 +95,12 @@ d3.json("../data/viewing_activity.json").then(function(json) {
   .style("fill", function (d) {
     return scale(d.Duration);
   })
+  .on('mousemove', updateHover)
+  .on('mouseout', function() {
+    // on cache le toolip
+    tooltip.classed('hidden', true);
+  });
+
   
 
   labels = d3.select("svg")
@@ -136,6 +161,9 @@ function update (){
   .data(adjancencymatrix)
   .join("rect")
   .transition()
+  .delay(function(d,i){ 
+    return i;
+  })
   .duration(1000)
   .attr("width", echellex.bandwidth())
   .attr("height", echelley.bandwidth())
@@ -151,5 +179,10 @@ function update (){
     return scale(d.Duration);
   })
 
+  matrixViz.selectAll("rect")
+  .data(adjancencymatrix)
+  .on('mousemove', updateHover);
+
+  
 }
 
