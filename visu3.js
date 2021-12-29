@@ -42,10 +42,7 @@ d3.csv("./data/week_activity.csv").then(function(data) {
 
     // Add X axis
     const x = d3.scaleLinear()
-        .domain(d3.extent(data, function(d) {
-            console.log(d["Week"])
-            return d["Week"];
-        }))
+        .domain([0, max_week])
         .range([0, width_visu3]);
     const xAxis = svg_visu3.append("g")
         .attr("transform", `translate(0, ${height_visu3})`)
