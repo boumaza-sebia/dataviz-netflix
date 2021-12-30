@@ -63,9 +63,7 @@ d3.csv("./data/week_activity.csv").then(function(data) {
         .text("Temps de visionnage (minutes)")
         .attr("text-anchor", "start")
 
-    let max_value = d3.max(data, function(d) { return parseInt(d["Both"]); }) +
-        d3.max(data, function(d) { return parseInt(d["Hana"]); }) +
-        d3.max(data, function(d) { return parseInt(d["Tarik"]); })
+    let max_value = d3.max(data, function(d) { return (parseInt(d["Both"]) + parseInt(d["Hana"]) + parseInt(d["Tarik"])); })
 
     // Add Y axis
     const y = d3.scaleLinear()
@@ -95,7 +93,6 @@ d3.csv("./data/week_activity.csv").then(function(data) {
             [0, 0],
             [width_visu3, height_visu3]
         ]) // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
-        .on("end", updateChart) // Each time the brush selection changes, trigger the 'updateChart' function
 
     // Create the scatter variable: where both the circles and the brush take place
     const areaChart = svg_visu3.append('g')
@@ -121,33 +118,6 @@ d3.csv("./data/week_activity.csv").then(function(data) {
         .append("g")
         .attr("class", "brush")
         .call(brush);
-
-    let idleTimeout
-
-    function idled() { idleTimeout = null; }
-
-    // A function that update the chart for given boundaries
-    function updateChart(event, d) {
-
-        extent = event.selection
-
-        // If no selection, back to initial coordinate. Otherwise, update X axis domain
-        if (!extent) {
-            if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
-            x.domain(d3.extent(data, function(d) { return d["Week"]; }))
-        } else {
-            x.domain([x.invert(extent[0]), x.invert(extent[1])])
-            areaChart.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
-        }
-
-        // Update axis and area position
-        xAxis.transition().duration(1000).call(d3.axisBottom(x).ticks(5))
-        areaChart
-            .selectAll("path")
-            .transition().duration(1000)
-            .attr("d", area)
-    }
-
 
 
     //////////
