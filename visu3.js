@@ -161,7 +161,7 @@ d3.csv("./data/week_activity.csv").then(function(data) {
         .data(keys)
         .join("text")
         .attr("x", 400 + size * 1.2)
-        .attr("y", function(d, i) { return 10 + i * (size + 5) + (size / 2) }) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("y", function(d, i) { return 10 + i * (size + 5) + (size / 2) + 5 }) // 100 is where the first dot appears. 25 is the distance between dots
         .style("fill", function(d) { return color(d) })
         .text(function(d) { return d })
         .attr("text-anchor", "left")
