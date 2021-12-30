@@ -65,10 +65,12 @@ d3.json("../data/device_type.json").then(function(json) {
 });
 
 
-function update_visu2() {
+async function update_visu2() {
     user = Array.from(document.getElementsByName("inlineRadioOptions")).find(r => r.checked).value;
 
     data_plot_visu2 = pie(Object.entries(data_visu2[user]))
+
+    await new Promise(resolve => setTimeout(resolve, 800));
 
     svg_visu2
         .selectAll(null)
