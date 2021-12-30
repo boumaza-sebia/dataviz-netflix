@@ -28,32 +28,37 @@
         <header class="pb-3 mb-4 border-bottom">
           <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
             <span class=" text-danger fs-4">Netflix Data Visualisation </span>
-          </a>
-        </header>
-        
-        <div class="col offset-md-5">
-          <div class="form-check form-check-inline">
+        </a>
+    </header>
+
+    <div class="col offset-md-5">
+        <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Hana" onchange="update()" checked>
             <label class="form-check-label" for="inlineRadio1">Hana</label>
-          </div>
-          <div class="form-check form-check-inline">
+        </div>
+        <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" onchange="update()" value="Tarik">
             <label class="form-check-label" for="inlineRadio2">Tarik</label>
-          </div>
-          <div class="form-check form-check-inline">
+        </div>
+        <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" onchange="update()" value="Both">
             <label class="form-check-label" for="inlineRadio3">Both</label>
-          </div>
         </div>
-
-        
-
-
-        <div id="visu1">
-        </div>
-        <script src="./data/week_days.js"></script>
-        <script src="./visu1.js"></script>
+    </div>
 
 
-    </body>
+    <div id="visu1">
+    </div>
+    <script src="./data/week_days.js"></script>
+    <script src="./visu1.js"></script>
+
+    <div id="visu2"></div>
+    <script src="./visu2.js"></script>
+
+    <div id="visu3"></div>
+    <script src="./visu3.js"></script>
+
+
+</body>
+
 </html>

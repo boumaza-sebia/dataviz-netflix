@@ -54,7 +54,7 @@ d3.json("../data/viewing_activity.json").then(function(json) {
 
   // 3. Créer un domaine pour notre échelle
   max_weight = d3.max(adjancencymatrix, function (d) {
-        return parseInt(d.Duration);
+        return parseInt(d.TotalDuration);
       });
   
 
@@ -96,7 +96,7 @@ d3.json("../data/viewing_activity.json").then(function(json) {
   .style("stroke", "black")
   .style("stroke-width", ".3px")
   .style("fill", function (d) {
-    return scale(d.Duration);
+    return scale(d.TotalDuration*2);
   })
   .on('mousemove', updateHover)
   .on('mouseout', function() {
@@ -143,7 +143,12 @@ d3.json("../data/viewing_activity.json").then(function(json) {
   
 });
 
-function update (){
+function update () {
+  update_visu1();
+  update_visu2();
+}
+
+function update_visu1 (){
   user= Array.from(document.getElementsByName("inlineRadioOptions")).find(r => r.checked).value;
 
   adjancencymatrix = myjson.filter(function(row){
@@ -152,7 +157,7 @@ function update (){
 
   // 3. Créer un domaine pour notre échelle
   max_weight = d3.max(adjancencymatrix, function (d) {
-    return parseInt(d.Duration);
+    return parseInt(d.TotalDuration);
   });
 
 
@@ -179,13 +184,11 @@ function update (){
   .style("stroke", "black")
   .style("stroke-width", ".3px")
   .style("fill", function (d) {
-    return scale(d.Duration);
+    return scale(d.TotalDuration);
   })
 
   matrixViz.selectAll("rect")
   .data(adjancencymatrix)
   .on('mousemove', updateHover);
-
-  
 }
 

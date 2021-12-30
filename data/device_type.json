@@ -1,13 +1,13 @@
 {
     "Both": {
-        "Ordinateur": 7579.300000000002
+        "Ordinateur": 7579.330000000001
     },
     "Tarik": {
-        "Ordinateur": 10452.466666666665,
-        "Smartphone": 6278.966666666667
+        "Ordinateur": 10452.599999999988,
+        "Smartphone": 6279.009999999994
     },
     "Hana": {
-        "Smartphone": 38598.14999999996,
-        "Ordinateur": 220.31666666666666
+        "Smartphone": 38598.45999999985,
+        "Ordinateur": 220.29
     }
 }
