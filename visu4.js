@@ -24,8 +24,8 @@ function BubbleChart(data, {
     colors = d3.schemeTableau10, // an array of colors (for groups)
     fill = "#ccc", // a static fill color, if no group channel is specified
     fillOpacity = 0.7, // the fill opacity of the bubbles
-    stroke, // a static stroke around the bubbles
-    strokeWidth, // the stroke width around the bubbles, if any
+    stroke = "black", // a static stroke around the bubbles
+    strokeWidth = ".3px", // the stroke width around the bubbles, if any
     strokeOpacity, // the stroke opacity around the bubbles, if any
   } = {}) {
     // Compute the values.
@@ -38,8 +38,11 @@ function BubbleChart(data, {
     if (G && groups === undefined) groups = I.map(i => G[i]);
     groups = G && new d3.InternSet(groups);
   
+
     // Construct scales.
-    const color = G && d3.scaleOrdinal(groups, colors);
+    const color = G && d3.scaleQuantize(groups, colors)
+                        .domain([0, 100])
+                        .range(d3.schemeRdBu[7]);
   
     // Compute labels and titles.
     const L = label == null ? null : d3.map(data, label);
@@ -105,14 +108,18 @@ function BubbleChart(data, {
 }
 
 
-d3.json("../data/csvjson.json").then(function(data) {
+d3.json("../data/favorites_color_level.json").then(function(data) {
+  file = data.filter(function(row){
+    return ((row["Duration"]/60|0) != 0);
+  });
 
-    var chart = BubbleChart(data, {
+
+    var chart = BubbleChart(file, {
         label: d =>  d.Title,
         value: d => d.Duration,
-        group: d => d.Profile,
-        title: d => d.Title,
+        group: d => d.ColorLevel,
+        title: d => `${d.Title}\n${d.Duration/60|0}h${d.Duration%60|0}`,
         link: d => `https://www.netflix.com/${d.Title.replace(/ /g,"")}`,
-        width: 1152
+        width: 600
     })
 });

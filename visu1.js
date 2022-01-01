@@ -96,7 +96,7 @@ d3.json("../data/viewing_activity.json").then(function(json) {
   .style("stroke", "black")
   .style("stroke-width", ".3px")
   .style("fill", function (d) {
-    return scale(d.TotalDuration*2);
+    return scale(d.TotalDuration);
   })
   .on('mousemove', updateHover)
   .on('mouseout', function() {
