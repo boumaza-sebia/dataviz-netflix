@@ -30,7 +30,7 @@ function updateHover(e, d) {
   //console.log(mousePosition);
   // on affiche le toolip
   var title = '';
-  d.Title.forEach(t => title = title.concat(t + "\n"));
+  d.Title.forEach(t => title = title.concat(t + ": "+ (d.Durations[d.Title.indexOf(t)]/60|0)+"h"+(d.Durations[d.Title.indexOf(t)]%60|0)+ "\n"));
   tooltip.classed('hidden', false)
   // on positionne le tooltip en fonction 
   // de la position de la souris
