@@ -37,41 +37,40 @@ d3.json("../data/device_type.json").then(function(json) {
         )
         .attr('fill', function(d) { return (color(d.data[1])) })
         .attr("stroke", "black")
-        .style("stroke-width", "2px")
+        .style("stroke-width", "0.8px")
         .style("opacity", 1)
 
-    legend = svg_visu2
-        .append('g')
-        .attr('transform', `translate(${radius * 2 + 20},0)`);
 
-    legend
-        .selectAll(null)
+    const size = 20
+    svg_visu2.selectAll(null)
         .data(data_plot_visu2)
-        .enter()
-        .append('rect')
-        .attr('y', d => labelHeight * d.index * 1.8)
-        .attr('width', labelHeight)
-        .attr('height', labelHeight)
-        .attr('fill', d => color(d.index))
+        .join("rect")
+        .attr("x", radius + 60)
+        .attr("y", function(d, i) { return (i * (size + 5) - 60) })
+        .attr("width", size)
+        .attr("height", size)
+        .style("fill", function(d) { return color(d) })
 
-    legend
-        .selectAll(null)
+    // Add one dot in the legend for each name.
+    svg_visu2.selectAll(null)
         .data(data_plot_visu2)
-        .enter()
-        .append('text')
-        .text(d => d.data[0])
-        .attr('x', labelHeight * 1.2)
-        .attr('y', d => labelHeight * d.index * 1.8 + labelHeight)
-        .style('font-family', 'sans-serif')
-        .style('font-size', `${labelHeight}px`);
+        .join("text")
+        .attr("x", radius + 60 + size * 1.2)
+        .attr("y", function(d, i) { return (i * (size + 5) + (size / 2) - 55) })
+        .style("fill", function(d) { return color(d) })
+        .text(function(d) { return d.data[0] })
+        .attr("text-anchor", "left")
+        .style("alignment-baseline", "middle")
 
 });
 
 
-function update_visu2() {
+async function update_visu2() {
     user = Array.from(document.getElementsByName("inlineRadioOptions")).find(r => r.checked).value;
 
     data_plot_visu2 = pie(Object.entries(data_visu2[user]))
+
+    await new Promise(resolve => setTimeout(resolve, 800));
 
     svg_visu2
         .selectAll(null)
@@ -83,9 +82,7 @@ function update_visu2() {
         )
         .attr('fill', function(d) { return (color(d.data[1])) })
         .attr("stroke", "black")
-        .style("stroke-width", "2px")
+        .style("stroke-width", "0.8px")
         .style("opacity", 1)
 
 }
-
-//s=([
