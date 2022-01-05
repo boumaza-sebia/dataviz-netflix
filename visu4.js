@@ -37,11 +37,10 @@ function BubbleChart(data, {
     if (G && groups === undefined) groups = I.map(i => G[i]);
     groups = G && new d3.InternSet(groups);
 
-
+    console.log(G)
     // Construct scales.
-    const color = G && d3.scaleQuantize(groups, colors)
-        .domain([0, 1])
-        .range(d3.schemeRdBu[7]);
+    const color = G && d3.scaleSequential(d3.interpolateRdBu)
+                        .domain([0,1]);
 
     // Compute labels and titles.
     const L = label == null ? null : d3.map(data, label);
@@ -105,6 +104,7 @@ function BubbleChart(data, {
   
     return Object.assign(svg.node(), {scales: {color}});
 }
+
 
 d3.json("../data/favorites_color_level.json").then(function(data) {
   file = data.filter(function(row){
