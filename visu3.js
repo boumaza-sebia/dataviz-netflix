@@ -38,11 +38,9 @@ d3.csv("./data/week_activity.csv").then(function(data) {
     // AXIS //
     //////////
 
-    const max_week = d3.max(data, function(d) { return parseInt(d["Week"]); })
-
     // Add X axis
     const x = d3.scaleLinear()
-        .domain([0, max_week])
+        .domain(d3.extent(data, function(d) { return parseInt(d["Week"]); }))
         .range([0, width_visu3]);
     const xAxis = svg_visu3.append("g")
         .attr("transform", `translate(0, ${height_visu3})`)
@@ -60,7 +58,7 @@ d3.csv("./data/week_activity.csv").then(function(data) {
         .attr("text-anchor", "end")
         .attr("x", 0)
         .attr("y", -20)
-        .text("Temps de visionnage (minutes)")
+        .text("Temps de visionnage (heures)")
         .attr("text-anchor", "start")
 
     let max_value = d3.max(data, function(d) { return (parseInt(d["Both"]) + parseInt(d["Hana"]) + parseInt(d["Tarik"])); })
@@ -75,7 +73,7 @@ d3.csv("./data/week_activity.csv").then(function(data) {
 
 
     //////////
-    // BRUSHING AND CHART //
+    // CHART //
     //////////
 
     // Add a clipPath: everything out of this area won't be drawn.
@@ -87,12 +85,6 @@ d3.csv("./data/week_activity.csv").then(function(data) {
         .attr("x", 0)
         .attr("y", 0);
 
-    // Add brushing
-    const brush = d3.brushX() // Add the brush feature using the d3.brush function
-        .extent([
-            [0, 0],
-            [width_visu3, height_visu3]
-        ]) // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
 
     // Create the scatter variable: where both the circles and the brush take place
     const areaChart = svg_visu3.append('g')
@@ -112,12 +104,6 @@ d3.csv("./data/week_activity.csv").then(function(data) {
         .attr("class", function(d) { return "myArea " + d.key })
         .style("fill", function(d) { return color(d.key); })
         .attr("d", area)
-
-    // Add the brushing
-    areaChart
-        .append("g")
-        .attr("class", "brush")
-        .call(brush);
 
 
     //////////
