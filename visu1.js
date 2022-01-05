@@ -96,7 +96,11 @@ d3.json("../data/viewing_activity.json").then(function(json) {
                 return "#fff";
             } else return scale(d.TotalDuration);
         })
-        .on('mousemove', updateHover)
+        .on('mousemove', function(e,d) {
+            if(d.TotalDuration != 0) {
+                updateHover(e,d);
+            }
+        })
         .on('mouseout', function() {
             // on cache le toolip
             tooltip.classed('hidden', true);
@@ -186,5 +190,9 @@ function update_visu1() {
 
     matrixViz.selectAll("rect")
         .data(adjancencymatrix)
-        .on('mousemove', updateHover);
+        .on('mousemove', function(e,d) {
+            if(d.TotalDuration != 0) {
+                updateHover(e,d);
+            }
+        });
 }
