@@ -54,11 +54,9 @@ d3.json("../data/viewing_activity.json").then(function(json) {
     max_weight = d3.max(adjancencymatrix, function(d) {
         return parseInt(d.TotalDuration);
     });
-
-
-    scale = d3.scaleQuantize()
-        .domain([0, max_weight])
-        .range(d3.schemeReds[9]); // donné par D3html
+    
+    scale = d3.scaleSequential(d3.interpolateReds)
+            .domain([0, max_weight]);
 
 
     // échelle 
@@ -67,13 +65,13 @@ d3.json("../data/viewing_activity.json").then(function(json) {
     echellex = d3.scaleBand()
         .range([0, width - 100]) // TODO correspond [0, largeur du dessin]
         .domain(d3.range(week_days.length))
-        .paddingInner(0.1)
+        .paddingInner(0.15)
         .round(true);
 
     echelley = d3.scaleBand()
         .range([0, height - 150]) // TODO correspond [0, largeur du dessin]
         .domain(d3.range(7))
-        .paddingInner(0.1)
+        .paddingInner(0.15)
         .align(0)
         .round(true);
 
@@ -94,7 +92,9 @@ d3.json("../data/viewing_activity.json").then(function(json) {
         .style("stroke", "black")
         .style("stroke-width", ".3px")
         .style("fill", function(d) {
-            return scale(d.TotalDuration);
+            if(d.TotalDuration == 0) {
+                return "#fff";
+            } else return scale(d.TotalDuration);
         })
         .on('mousemove', updateHover)
         .on('mouseout', function() {
@@ -153,9 +153,12 @@ function update_visu1() {
     });
 
 
-    scale = d3.scaleQuantize()
+    /*scale = d3.scaleQuantize()
         .domain([0, max_weight])
-        .range(d3.schemeReds[9]); // donné par D3html
+        .range(d3.schemeReds[9]); // donné par D3html*/
+
+    scale = d3.scaleSequential(d3.interpolateReds)
+        .domain([0, max_weight]);
 
     matrixViz.selectAll("rect")
         .data(adjancencymatrix)
@@ -176,7 +179,9 @@ function update_visu1() {
         .style("stroke", "black")
         .style("stroke-width", ".3px")
         .style("fill", function(d) {
-            return scale(d.TotalDuration);
+            if(d.TotalDuration == 0) {
+                return "#fff";
+            } else return scale(d.TotalDuration);
         })
 
     matrixViz.selectAll("rect")
