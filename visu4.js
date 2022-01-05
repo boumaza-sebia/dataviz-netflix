@@ -117,7 +117,6 @@ d3.json("../data/favorites_color_level.json").then(function(data) {
         value: d => d.Duration,
         group: d => d.ColorLevel,
         title: d => printbulle(d.Title, d.Duration),
-        link: d => `https://www.netflix.com/${d.Title.replace(/ /g,"")}`,
         width: 600
     })
 });
