@@ -121,14 +121,3 @@ d3.json("../data/favorites_color_level.json").then(function(data) {
         width: 600
     })
 });
-
-
-function printbulle(title, duration) {
-  if (duration < 60) {
-      return title + ": " + (Math.round(duration % 60 * 100) / 100) + "min"
-  }
-  if (duration % 60 < 10) {
-      return title + ": " + Math.round(duration / 60) + "h0" + Math.round(Math.round(duration % 60 * 100) / 100) + "min"
-  }
-  return title + ": " + Math.round(duration / 60) + "h" + Math.round(Math.round(duration % 60 * 100) / 100) + "min"
-}
