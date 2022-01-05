@@ -40,7 +40,7 @@ function BubbleChart(data, {
 
     // Construct scales.
     const color = G && d3.scaleQuantize(groups, colors)
-        .domain([0, 100])
+        .domain([0, 1])
         .range(d3.schemeRdBu[7]);
 
     // Compute labels and titles.
