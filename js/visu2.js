@@ -23,7 +23,7 @@ const pie = d3.pie()
 let data_visu2 = {};
 let legend;
 
-d3.json("../data/device_type.json").then(function(json) {
+d3.json("data/device_type.json").then(function(json) {
 
     data_visu2 = json
 

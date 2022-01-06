@@ -44,7 +44,7 @@ var tooltip = d3.select('body').append('div')
     .attr('class', 'hidden tooltip');
 
 
-d3.json("../data/viewing_activity.json").then(function(json) {
+d3.json("data/viewing_activity.json").then(function(json) {
     myjson = json;
     adjancencymatrix = json.filter(function(row) {
         return (row["ProfileName"] == user);

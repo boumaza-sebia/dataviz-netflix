@@ -153,7 +153,7 @@ function BubbleChart(data, {
 }
 
 
-d3.json("../data/favorites_color_level.json").then(function(data) {
+d3.json("data/favorites_color_level.json").then(function(data) {
     
     file = data.filter(function(row){
         return ((row["Duration"]/60|0) != 0);

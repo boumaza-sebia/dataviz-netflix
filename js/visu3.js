@@ -13,7 +13,7 @@ const svg_visu3 = d3.select("#visu3")
         `translate(${margin_visu3.left}, ${margin_visu3.top})`);
 
 // Parse the Data
-d3.csv("../data/week_activity.csv").then(function(data) {
+d3.csv("data/week_activity.csv").then(function(data) {
 
 
     //////////
