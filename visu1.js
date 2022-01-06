@@ -156,8 +156,17 @@ function update_visu1() {
         return parseInt(d.TotalDuration);
     });
 
-    scale = d3.scaleSequential(d3.interpolateReds)
+    if (user == "Hana") {
+        scale = d3.scaleSequential(d3.interpolateReds)
         .domain([0, max_weight]);
+    } else if (user == "Tarik") {
+        scale = d3.scaleSequential(d3.interpolateBlues)
+        .domain([0, max_weight]);
+    } else {
+        scale = d3.scaleSequential(d3.interpolateGreys)
+        .domain([0, max_weight]);
+    }
+    
 
     matrixViz.selectAll("rect")
         .data(adjancencymatrix)

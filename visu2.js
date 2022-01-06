@@ -15,7 +15,7 @@ const svg_visu2 = d3.select("#visu2")
 //.attr("transform", `translate(${radius},${radius})`);
 
 const color = d3.scaleOrdinal()
-    .range(["#ff0000", "#0080ff"])
+    .range(["#66a61e","#e6ab02"])
 
 const pie = d3.pie()
     .value(function(d) { return d[1] })
