@@ -160,10 +160,10 @@ d3.json("../data/favorites_color_level.json").then(function(data) {
     });
 
     var chart = BubbleChart(file, {
-        label: d =>  d.Title,
+        label: d =>  (d.Duration/60|0) >= 20 ? printMovie(d.Title, d.Duration, "\n") : d.Title,
         value: d => d.Duration,
         group: d => d.ColorLevel,
-        title: d => printbulle(d.Title, d.Duration),
+        title: d => printMovie(d.Title, d.Duration, " : "),
         width: 600
     })
 });

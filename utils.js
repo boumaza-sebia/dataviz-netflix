@@ -10,9 +10,9 @@ function update() {
 }
 
 
-function printbulle(title, duration) {
+function printMovie(title, duration, separator) {
     d = Math.round(duration)
-    str = title + " : ";
+    str = title + separator;
 
     if (d > 60) {
         str += ((d / 60) | 0) + "h"
