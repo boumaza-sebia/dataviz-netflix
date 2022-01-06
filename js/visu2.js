@@ -84,7 +84,7 @@ async function update_visu2() {
         )
         .attr('fill', function(d) { return (color(d.data[1])) })
         .attr("stroke", "black")
-        .style("stroke-width", "0.8px")
+        .style("stroke-width", "0.3px")
         .style("opacity", 1)
 
 }
