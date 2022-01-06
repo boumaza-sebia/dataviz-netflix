@@ -107,7 +107,7 @@ function BubbleChart(data, {
 
     barHeight = 15
     barWidth = 250
-    legend_height = 100
+    legend_height = 70
     legend_width = 500
 
     colorScale = d3.scaleSequential(d3.interpolateRdBu).domain([0,100])
@@ -116,7 +116,7 @@ function BubbleChart(data, {
         .domain(colorScale.domain())
         .range([margin.left, barWidth - margin.right])
     
-    const ticks = [20,50,80];
+    const ticks = [0,50,100];
     const tickLabels = ['Hana','Both','Tarik']
 
     axisBottom = g => g

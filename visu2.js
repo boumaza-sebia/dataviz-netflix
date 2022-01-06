@@ -15,7 +15,7 @@ const svg_visu2 = d3.select("#visu2")
 //.attr("transform", `translate(${radius},${radius})`);
 
 const color = d3.scaleOrdinal()
-    .range(["#66a61e","#e6ab02"])
+    .range(["#66a61e", "#e6ab02"])
 
 const pie = d3.pie()
     .value(function(d) { return d[1] })
@@ -39,7 +39,7 @@ d3.json("../data/device_type.json").then(function(json) {
         )
         .attr('fill', function(d) { return (color(d.data[1])) })
         .attr("stroke", "black")
-        .style("stroke-width", "0.8px")
+        .style("stroke-width", "0.3px")
         .style("opacity", 1)
 
 
