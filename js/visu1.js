@@ -28,7 +28,7 @@ function updateHover(e, d) {
     // on affiche le toolip
     var title = '';
     //d.Title.forEach(t => title = title.concat(t + ": " + (d.Durations[d.Title.indexOf(t)] / 60 | 0) + "h" + (d.Durations[d.Title.indexOf(t)] % 60 | 0) + "\n"));
-    d.Title.forEach(t => title = title.concat(printbulle(t, d.Durations[d.Title.indexOf(t)]) + "\n"));
+    d.Title.forEach(t => title = title.concat(printMovie(t, d.Durations[d.Title.indexOf(t)], " : ") + "\n"));
     tooltip.classed('hidden', false)
         // on positionne le tooltip en fonction 
         // de la position de la souris
