@@ -37,10 +37,10 @@ function BubbleChart(data, {
     if (G && groups === undefined) groups = I.map(i => G[i]);
     groups = G && new d3.InternSet(groups);
 
-    console.log(G)
-    // Construct scales.
+    console.log(groups)
+        // Construct scales.
     const color = G && d3.scaleSequential(d3.interpolateRdBu)
-                        .domain([0,1]);
+        .domain([0, 1]);
 
     // Compute labels and titles.
     const L = label == null ? null : d3.map(data, label);

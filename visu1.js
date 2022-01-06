@@ -1,7 +1,7 @@
 // Definition de la taille du svg
-const margin = { top: 0, right: 30, bottom: 10, left: 10 },
-    width = 1300,
-    height = 300;
+const margin = { top: 20, right: 20, bottom: 10, left: 20 },
+    width = 1600,
+    height = 360;
 
 var svg = d3.select("#visu1")
     .append("svg")
@@ -54,9 +54,9 @@ d3.json("../data/viewing_activity.json").then(function(json) {
     max_weight = d3.max(adjancencymatrix, function(d) {
         return parseInt(d.TotalDuration);
     });
-    
+
     scale = d3.scaleSequential(d3.interpolateReds)
-            .domain([0, max_weight]);
+        .domain([0, max_weight]);
 
 
     // échelle 
@@ -76,7 +76,7 @@ d3.json("../data/viewing_activity.json").then(function(json) {
         .round(true);
 
     // 4. Afficher une 1e matrice d'adjacence
-    matrixViz = d3.select("svg").append("g").attr("transform", "translate(70,   50)");
+    matrixViz = d3.select("svg").append("g").attr("transform", "translate(70, 60)");
 
     matrixViz.selectAll()
         .data(adjancencymatrix)
@@ -92,13 +92,13 @@ d3.json("../data/viewing_activity.json").then(function(json) {
         .style("stroke", "black")
         .style("stroke-width", ".3px")
         .style("fill", function(d) {
-            if(d.TotalDuration == 0) {
+            if (d.TotalDuration == 0) {
                 return "#fff";
             } else return scale(d.TotalDuration);
         })
-        .on('mousemove', function(e,d) {
-            if(d.TotalDuration != 0) {
-                updateHover(e,d);
+        .on('mousemove', function(e, d) {
+            if (d.TotalDuration != 0) {
+                updateHover(e, d);
             }
         })
         .on('mouseout', function() {
@@ -110,8 +110,8 @@ d3.json("../data/viewing_activity.json").then(function(json) {
 
     labels = d3.select("svg")
         .append("g")
-        .attr("transform", "translate(70, 50)")
-        .style("font-size", "8px")
+        .attr("transform", "translate(70, 60)")
+        .style("font-size", "10px")
         .style("font-family", "sans-serif");
 
     jours = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"]
@@ -156,11 +156,6 @@ function update_visu1() {
         return parseInt(d.TotalDuration);
     });
 
-
-    /*scale = d3.scaleQuantize()
-        .domain([0, max_weight])
-        .range(d3.schemeReds[9]); // donné par D3html*/
-
     scale = d3.scaleSequential(d3.interpolateReds)
         .domain([0, max_weight]);
 
@@ -183,16 +178,16 @@ function update_visu1() {
         .style("stroke", "black")
         .style("stroke-width", ".3px")
         .style("fill", function(d) {
-            if(d.TotalDuration == 0) {
+            if (d.TotalDuration == 0) {
                 return "#fff";
             } else return scale(d.TotalDuration);
         })
 
     matrixViz.selectAll("rect")
         .data(adjancencymatrix)
-        .on('mousemove', function(e,d) {
-            if(d.TotalDuration != 0) {
-                updateHover(e,d);
+        .on('mousemove', function(e, d) {
+            if (d.TotalDuration != 0) {
+                updateHover(e, d);
             }
         });
 }

@@ -1,6 +1,6 @@
 // set the dimensions and margins of the graph
-const margin_visu3 = { top: 60, right: 230, bottom: 50, left: 50 },
-    width_visu3 = 660 - margin_visu3.left - margin_visu3.right,
+const margin_visu3 = { top: 100, right: 230, bottom: 50, left: 120 },
+    width_visu3 = 770 - margin_visu3.left - margin_visu3.right,
     height_visu3 = 400 - margin_visu3.top - margin_visu3.bottom;
 
 // append the svg object to the body of the page
@@ -26,7 +26,9 @@ d3.csv("./data/week_activity.csv").then(function(data) {
     // color palette
     const color = d3.scaleOrdinal()
         .domain(keys)
-        .range(d3.schemeSet2);
+        //.range(d3.schemeRdBu[3])
+        //.range(d3.schemeTableau10);
+        .range(["#286EAC", "#EF6464", "#D2C8C8"])
 
     //stack the data?
     const stackedData = d3.stack()

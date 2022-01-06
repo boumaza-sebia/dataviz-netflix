@@ -1,16 +1,18 @@
-const width_visu2 = 600,
-    height_visu2 = 300;
+const width_visu2 = 400,
+    height_visu2 = 400;
 
 const labelHeight = 18
 
-const radius = 75;
+const radius = 90;
 
 const svg_visu2 = d3.select("#visu2")
     .append("svg")
     .attr("width", width_visu2)
     .attr("height", height_visu2)
     .append("g")
-    .attr("transform", `translate(${radius},${radius})`);
+    .attr("transform", "translate(" + 100 + "," + 250 + ")");
+
+//.attr("transform", `translate(${radius},${radius})`);
 
 const color = d3.scaleOrdinal()
     .range(["#ff0000", "#0080ff"])
