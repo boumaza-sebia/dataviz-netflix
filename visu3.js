@@ -44,9 +44,30 @@ d3.csv("./data/week_activity.csv").then(function(data) {
     const x = d3.scaleLinear()
         .domain(d3.extent(data, function(d) { return parseInt(d["Week"]); }))
         .range([0, width_visu3]);
+
+
+    const nb_ticks = 6;
+
+    let ticks = []
+    let tickLabels = []
+    for (i = 0; i <= nb_ticks; i = i + 1) {
+        ticks.push(Math.round(i * week_days.length / nb_ticks));
+        tickLabels.push(week_days[Math.round(i * week_days.length / nb_ticks)]);
+    }
+
+    tickLabels[tickLabels.length - 1] = week_days[week_days.length - 1]
+
     const xAxis = svg_visu3.append("g")
         .attr("transform", `translate(0, ${height_visu3})`)
-        .call(d3.axisBottom(x).ticks(5))
+        .call(d3
+            .axisBottom(x)
+            .ticks(nb_ticks)
+            .tickSize(3)
+            .tickValues(ticks)
+            .tickFormat(function(d, i) { return tickLabels[i] }));
+
+
+
 
     // Add X axis label:
     svg_visu3.append("text")
