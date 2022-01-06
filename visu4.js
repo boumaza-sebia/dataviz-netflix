@@ -106,25 +106,24 @@ function BubbleChart(data, {
     margin = ({top: 20, right: 110, bottom: 30, left: 30})
 
     barHeight = 15
-    barWidth = 200
+    barWidth = 250
     legend_height = 100
     legend_width = 500
 
-    colorScale = d3.scaleSequential(d3.interpolateRdBu).domain([0, 100])
+    colorScale = d3.scaleSequential(d3.interpolateRdBu).domain([0,100])
 
     axisScale = d3.scaleLinear()
         .domain(colorScale.domain())
         .range([margin.left, barWidth - margin.right])
     
-    const ticks = [0,50,100];
+    const ticks = [20,50,80];
     const tickLabels = ['Hana','Both','Tarik']
 
     axisBottom = g => g
         .attr("class", `x-axis`)
         .attr("transform", `translate(0,${legend_height - margin.bottom})`)
         .call(d3.axisBottom(axisScale)
-            .ticks(3)
-            .tickSize(5)
+            .tickSize(3)
             .tickValues(ticks)
             .tickFormat(function(d,i){ return tickLabels[i] }));
 
