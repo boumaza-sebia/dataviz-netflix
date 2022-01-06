@@ -37,7 +37,6 @@ function BubbleChart(data, {
     if (G && groups === undefined) groups = I.map(i => G[i]);
     groups = G && new d3.InternSet(groups);
 
-    console.log(G)
     // Construct scales.
     const color = G && d3.scaleSequential(d3.interpolateRdBu)
                         .domain([0,1]);
@@ -101,16 +100,65 @@ function BubbleChart(data, {
             .attr("fill-opacity", (d, i, D) => i === D.length - 1 ? 0.7 : null)
             .text(d => d);
     }
+
+    ///// LEGEND //////
+
+    margin = ({top: 20, right: 110, bottom: 30, left: 30})
+
+    barHeight = 15
+    barWidth = 200
+    legend_height = 100
+    legend_width = 500
+
+    colorScale = d3.scaleSequential(d3.interpolateRdBu).domain([0, 100])
+
+    axisScale = d3.scaleLinear()
+        .domain(colorScale.domain())
+        .range([margin.left, barWidth - margin.right])
+    
+    const ticks = [0,50,100];
+    const tickLabels = ['Hana','Both','Tarik']
+
+    axisBottom = g => g
+        .attr("class", `x-axis`)
+        .attr("transform", `translate(0,${legend_height - margin.bottom})`)
+        .call(d3.axisBottom(axisScale)
+            .ticks(3)
+            .tickSize(5)
+            .tickValues(ticks)
+            .tickFormat(function(d,i){ return tickLabels[i] }));
+
+    const defs = svg.append("defs");
   
+    const linearGradient = defs.append("linearGradient")
+        .attr("id", "linear-gradient");
+  
+    linearGradient.selectAll("stop")
+        .data(colorScale.ticks().map((t, i, n) => ({ offset: `${100*i/n.length}%`, color: colorScale(t) })))
+        .enter().append("stop")
+        .attr("offset", d => d.offset)
+        .attr("stop-color", d => d.color);
+  
+    svg.append('g')
+        .attr("transform", `translate(0,${legend_height - margin.bottom - barHeight})`)
+        .append("rect")
+        .attr('transform', `translate(${margin.left}, 0)`)
+        .attr("width", barWidth - margin.right - margin.left)
+        .attr("height", barHeight)
+        .style("fill", "url(#linear-gradient)");
+    
+    svg.append('g')
+        .call(axisBottom);
+
     return Object.assign(svg.node(), {scales: {color}});
 }
 
 
 d3.json("../data/favorites_color_level.json").then(function(data) {
-  file = data.filter(function(row){
-    return ((row["Duration"]/60|0) != 0);
-  });
-
+    
+    file = data.filter(function(row){
+        return ((row["Duration"]/60|0) != 0);
+    });
 
     var chart = BubbleChart(file, {
         label: d =>  d.Title,
@@ -120,3 +168,5 @@ d3.json("../data/favorites_color_level.json").then(function(data) {
         width: 600
     })
 });
+
+
