@@ -12,12 +12,21 @@ const svg_visu2 = d3.select("#visu2")
     .append("g")
     .attr("transform", "translate(" + 100 + "," + 250 + ")");
 
+
 svg_visu2.append("text")
-    .attr("x", radius)
+    .attr("x", radius - 150)
+    .attr("y", radius + 40)
+    .attr("text-anchor", "middle")
+    .style("font-size", "15px")
+    .style("text-decoration", "underline")
+    .text("Figure 4");
+
+svg_visu2.append("text")
+    .attr("x", radius + 45)
     .attr("y", radius + 40)
     .attr("text-anchor", "middle")
     .style("font-size", "14px")
-    .text("Répartition du temps de visionnage par appareil");
+    .text(": Répartition du temps de visionnage par appareil");
 
 //.attr("transform", `translate(${radius},${radius})`);
 

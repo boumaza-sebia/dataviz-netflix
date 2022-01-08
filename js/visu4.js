@@ -64,11 +64,19 @@ function BubbleChart(data, {
         .attr("text-anchor", "middle");
 
     svg_visu4.append("text")
-        .attr("x", (width / 2))
+        .attr("x", (width / 2) - 110)
+        .attr("y", height + 30)
+        .attr("text-anchor", "middle")
+        .style("font-size", "15px")
+        .style("text-decoration", "underline")
+        .text("Figure 2");
+
+    svg_visu4.append("text")
+        .attr("x", (width / 2) + 15)
         .attr("y", height + 30)
         .attr("text-anchor", "middle")
         .style("font-size", "14px")
-        .text("Contenus visionnés par profil");
+        .text(": Contenus visionnés par profil");
 
     const leaf = svg_visu4.selectAll("a")
         .data(root.leaves())

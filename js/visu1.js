@@ -5,31 +5,40 @@ const margin = { top: 20, right: 20, bottom: 0, left: 20 },
 
 var svg_visu1 = d3.select("#visu1")
     .append("svg")
-    .attr("width", width + 100)
+    .attr("width", width)
     .attr("height", height)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
 svg_visu1.append("text")
-    .attr("x", (width / 2))
+    .attr("x", (width / 2) - 60)
+    .attr("y", height - 80)
+    .attr("text-anchor", "middle")
+    .style("font-size", "15px")
+    .style("text-decoration", "underline")
+    .text("Figure 1 ");
+
+svg_visu1.append("text")
+    .attr("x", (width / 2) + 60)
     .attr("y", height - 80)
     .attr("text-anchor", "middle")
     .style("font-size", "14px")
-    .text("Calendrier de visionnage");
+    .text(": Calendrier de visionnage");
 
 
 ///// Légende ////
 
 const barHeight_visu1 = 15
 const barWidth_visu1 = 200
-const legend_height_visu1 = -margin.bottom
+const legend_height_visu1 = height - 80
 
-axisScale_visu1 = d3.scaleLinear()
+const axisScale_visu1 = d3.scaleLinear()
     .domain([0, 100])
-    .range([width - barWidth_visu1 + 20, width + 20])
+    .range([width - barWidth_visu1 - 78, width - 78])
 
-ticks = [0, 100];
-tickLabels = ['Moins', 'Beaucoup']
+const ticks = [0, 100];
+const tickLabels = ['Moins', 'Beaucoup']
 
 axisBottom_visu1 = g => g
     .attr("class", `x-axis`)
@@ -248,10 +257,6 @@ async function updateLegend(colorSet, update = true) {
 
     colorScale_visu1 = d3.scaleSequential(colorSet).domain([0, 100])
 
-    axisScale_visu1 = d3.scaleLinear()
-        .domain([0, 100])
-        .range([width - barWidth_visu1 + 20, width + 20])
-
     svg_visu1.selectAll("defs").remove("defs");
 
     svg_visu1.append("defs").append("linearGradient")
@@ -265,7 +270,7 @@ async function updateLegend(colorSet, update = true) {
     svg_visu1.append('g')
         .attr("transform", `translate(0,${legend_height_visu1 - barHeight_visu1})`)
         .append("rect")
-        .attr('transform', `translate(${width - barWidth_visu1 + 20}, 0)`)
+        .attr('transform', `translate(${width - barWidth_visu1 - 78}, 0)`)
         .attr("width", barWidth_visu1)
         .attr("height", barHeight_visu1)
         .style("fill", "url(#linear-gradient-visu1)");

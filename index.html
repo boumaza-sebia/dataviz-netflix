@@ -33,10 +33,14 @@
         <a class="d-flex  text-dark text-decoration-none">
             <span class=" text-danger fs-2"> Netflix Data Visualisation </span>
         </a>
-    </br>
-        <p class="text-start fw-light"> Ce travail vise à étudier les contenus visionnés par 
-            les développeurs de ce projet. Les données personnelles fournies par la plateforme
-            Netflix ont été utilisées. </p>
+        </br>
+        <p class="text-start fw-light">
+            Ce travail vise à étudier les contenus visionnés par les développeurs de ce projet. Les données personnelles fournies par la plateforme Netflix ont été utilisées.
+        </p>
+        <p class="text-start fw-light">
+            On se donne pour objectif la mise en valeur des différences entre les 3 profils étudiés ("Tarik", "Hana", ou "Both" - profil commun aux deux utilisateurs).
+        </p>
+
     </header>
 
     <div class="container-fluid">
@@ -47,7 +51,7 @@
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Hana" onchange="update()" checked>
                         <label class="form-check-label" for="inlineRadio1">Hana</label>
                     </div>
-        
+
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" onchange="update()" value="Both">
                         <label class="form-check-label" for="inlineRadio3">Both</label>
@@ -60,17 +64,16 @@
                 </div>
             </div>
             <script src="js/utils.js"></script>
-            <div class="row">
-                <div class="col col-md-auto d-flex justify-content-center">
+            <div class="row row-cols-2">
+                <div class="col col-md-10 d-flex justify-content-center">
                     <br/>
-                    <div  id="visu1"></div>
+                    <div id="visu1"></div>
                     <script src="data/week_days.js"></script>
                     <script src="js/visu1.js"></script>
                 </div>
-                <div class="col col-md-2 align-self-center border border-danger rounded text-center">
+                <div class="col col-md-2 align-self-center border border-dark rounded text-center">
                     <br/>
-                    <p> Ce calendrier représente le temps de visionnage quotidien entre le 06/04/2020
-                        et le 21/11/2021 par profil.
+                    <p> Ce calendrier représente le temps de visionnage quotidien entre le 06/04/2020 et le 21/11/2021 par profil.
                     </p>
                 </div>
             </div>
@@ -83,11 +86,13 @@
                 <script src="js/visu4.js"></script>
             </div>
 
-            <div class="col col-md-auto align-self-stretch">
+            <div class="col col-md-5 align-self-stretch">
                 <div class="row row-cols-1">
                     <div class="col" id="visu3"></div>
-                    <div class="col col-6 offset-md-2 mt-4 align-self-end border border-danger rounded text-center" style="margin-top: 100px;">
-                        <p> </p>
+                    <div class="col col-md-8 offset-2 mt-4 align-self-end border border-dark rounded text-center" style="margin-top: 100px;">
+                        <p>
+                            Il s'agit ici de représenter le temps de visionnage cumulé par les profils étudiés. Il permet notamment de distinger les fluctuations hebdomadaires communes aux deux utilisateurs.
+                        </p>
                     </div>
                 </div>
                 <script src="js/visu3.js"></script>
@@ -96,33 +101,31 @@
             <div class="col col-md-2 align-self-stretch">
                 <div class="row row-cols-1">
                     <div id="visu2"></div>
-                    <div class="col mt-4 align-self-end border border-danger rounded text-center" style="margin-top: 100px;">
-                        <p> Visualisation 2</p>
+                    <div class="col offset-1 mt-4 align-self-end border border-success rounded text-center" style="margin-top: 100px;">
+                        <p>Ici, on s'intéresse à la répartition du temps de visionnage selon les appareils utilisés par chacun des profils</p>
                     </div>
                 </div>
                 <script src="js/visu2.js"></script>
             </div>
         </div>
 
+        <footer class="footer-fluid bg-dark" id="footer" style="color: white;">
 
-
-        <footer class="footer bg-dark" id="footer" style="color: white;">
-            
             <div class="row row-cols-3">
 
-                <div class="text-center">
+                <div class="col text-center">
                     <a href="https://github.com/boumaza-sebia/dataviz-netflix"> Github</a>
                 </div>
 
-                <div class="text-center">
+                <div class="col text-center">
                     Développé par :
                     </br>
                     - <a href="mailto:hana.sebia@etu.univ-lyon1.fr"> Hana Sebia</a>
                     </br>
                     - <a href="mailto:tarik.boumaza@etu.univ-lyon1.fr"> Tarik Boumaza</a>
                 </div>
-                
-                <div class="text-center">
+
+                <div class="col text-center">
                     Data Visualisation
                     </br>
                     <a href="https://www.univ-lyon1.fr"> Université Claude Bernard Lyon 1</a>
@@ -131,6 +134,7 @@
             </div>
 
         </footer>
+
     </div>
 
 </body>
