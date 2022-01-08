@@ -52,7 +52,7 @@ function BubbleChart(data, {
         (d3.hierarchy({ children: I })
             .sum(i => V[i]));
 
-    const svg = d3.select("#visu4")
+    const svg_visu4 = d3.select("#visu4")
         .append("svg")
         .attr("width", width)
         .attr("height", height + 150)
@@ -63,14 +63,14 @@ function BubbleChart(data, {
         .attr("font-family", "sans-serif")
         .attr("text-anchor", "middle");
 
-    svg.append("text")
+    svg_visu4.append("text")
         .attr("x", (width / 2))
         .attr("y", height + 30)
         .attr("text-anchor", "middle")
         .style("font-size", "14px")
         .text("Contenus visionnés par profil");
 
-    const leaf = svg.selectAll("a")
+    const leaf = svg_visu4.selectAll("a")
         .data(root.leaves())
         .join("a")
         .attr("xlink:href", link == null ? null : (d, i) => link(D[d.data], i, data))
@@ -115,12 +115,11 @@ function BubbleChart(data, {
     barHeight = 15
     barWidth = 250
     legend_height = 70
-    legend_width = 500
 
-    colorScale = d3.scaleSequential(d3.interpolateRdBu).domain([0,100])
+    colorScale_visu4 = d3.scaleSequential(d3.interpolateRdBu).domain([0,100])
 
     axisScale = d3.scaleLinear()
-        .domain(colorScale.domain())
+        .domain(colorScale_visu4.domain())
         .range([margin.left, barWidth - margin.right])
     
     const ticks = [0,50,100];
@@ -134,18 +133,18 @@ function BubbleChart(data, {
             .tickValues(ticks)
             .tickFormat(function(d,i){ return tickLabels[i] }));
 
-    const defs = svg.append("defs");
+    const defs = svg_visu4.append("defs");
   
     const linearGradient = defs.append("linearGradient")
         .attr("id", "linear-gradient");
   
     linearGradient.selectAll("stop")
-        .data(colorScale.ticks().map((t, i, n) => ({ offset: `${100*i/n.length}%`, color: colorScale(t) })))
+        .data(colorScale_visu4.ticks().map((t, i, n) => ({ offset: `${100*i/n.length}%`, color: colorScale_visu4(t) })))
         .enter().append("stop")
         .attr("offset", d => d.offset)
         .attr("stop-color", d => d.color);
   
-    svg.append('g')
+    svg_visu4.append('g')
         .attr("transform", `translate(0,${legend_height - margin.bottom - barHeight})`)
         .append("rect")
         .attr('transform', `translate(${margin.left}, 0)`)
@@ -153,10 +152,10 @@ function BubbleChart(data, {
         .attr("height", barHeight)
         .style("fill", "url(#linear-gradient)");
     
-    svg.append('g')
+    svg_visu4.append('g')
         .call(axisBottom);
 
-    return Object.assign(svg.node(), {scales: {color}});
+    return Object.assign(svg_visu4.node(), {scales: {color}});
 }
 
 
