@@ -1,3 +1,5 @@
+// Visualisation 1
+
 // Definition de la taille du svg
 const margin = { top: 20, right: 20, bottom: 0, left: 20 },
     width = 1600,
@@ -11,6 +13,7 @@ var svg_visu1 = d3.select("#visu1")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
+// Ajout du titre
 svg_visu1.append("text")
     .attr("x", (width / 2) - 60)
     .attr("y", height - 80)
@@ -27,8 +30,7 @@ svg_visu1.append("text")
     .text(": Calendrier de visionnage");
 
 
-///// Légende ////
-
+// Légende 
 const barHeight_visu1 = 15
 const barWidth_visu1 = 200
 const legend_height_visu1 = height - 80
@@ -55,8 +57,27 @@ svg_visu1.append('g')
 updateLegend(d3.interpolateReds, false)
 
 
+// ajout d'un tooltip
+var tooltip = d3.select('body').append('div')
+    .attr('class', 'hidden tooltip');
 
-// 2 . Chargement des donnéels
+// Mise à jour du tooltip 
+function updateHover(e, d) {
+    // e est l'object event d
+    var mousePosition = [e.x, e.y];
+    // on affiche le toolip
+    var title = '';
+    d.Title.forEach(t => title = title.concat(printMovie(t, d.Durations[d.Title.indexOf(t)], " : ") + "\n"));
+    tooltip.classed('hidden', false)
+        // on positionne le tooltip en fonction 
+        // de la position de la souris
+        .attr('style', 'left:' + (mousePosition[0] + 15) +
+            'px; top:' + (mousePosition[1] - 35) + 'px')
+        // on recupere le nom de l'etat
+    .html(title);
+}
+
+// Chargement des données
 var myjson = {};
 var echellex;
 var echelley;
@@ -66,36 +87,15 @@ var columns;
 var scale;
 var max_weight;
 
-function updateHover(e, d) {
-    // e est l'object event d
-    var mousePosition = [e.x, e.y];
-    //console.log(mousePosition);
-    // on affiche le toolip
-    var title = '';
-    //d.Title.forEach(t => title = title.concat(t + ": " + (d.Durations[d.Title.indexOf(t)] / 60 | 0) + "h" + (d.Durations[d.Title.indexOf(t)] % 60 | 0) + "\n"));
-    d.Title.forEach(t => title = title.concat(printMovie(t, d.Durations[d.Title.indexOf(t)], " : ") + "\n"));
-    tooltip.classed('hidden', false)
-        // on positionne le tooltip en fonction 
-        // de la position de la souris
-        .attr('style', 'left:' + (mousePosition[0] + 15) +
-            'px; top:' + (mousePosition[1] - 35) + 'px')
-        // on recupere le nom de l'etat
-
-    .html(title);
-}
-
-// ajout d'un tooltip
-var tooltip = d3.select('body').append('div')
-    .attr('class', 'hidden tooltip');
-
-
 d3.json("data/viewing_activity.json").then(function(json) {
     myjson = json;
+
+    // Filtre par profil
     adjancencymatrix = json.filter(function(row) {
         return (row["ProfileName"] == user);
     });
 
-    // 3. Créer un domaine pour notre échelle
+    // Créer un domaine pour notre échelle
     max_weight = d3.max(adjancencymatrix, function(d) {
         return parseInt(d.TotalDuration);
     });
@@ -103,24 +103,20 @@ d3.json("data/viewing_activity.json").then(function(json) {
     scale = d3.scaleSequential(d3.interpolateReds)
         .domain([0, max_weight]);
 
-
-    // échelle 
-    //var positionsDates = d3.range(85); //longuer liste
-
     echellex = d3.scaleBand()
-        .range([0, width - 100]) // TODO correspond [0, largeur du dessin]
+        .range([0, width - 100]) 
         .domain(d3.range(week_days.length))
         .paddingInner(0.15)
         .round(true);
 
     echelley = d3.scaleBand()
-        .range([0, height - 150]) // TODO correspond [0, largeur du dessin]
+        .range([0, height - 150]) 
         .domain(d3.range(7))
         .paddingInner(0.15)
         .align(0)
         .round(true);
 
-    // 4. Afficher une 1e matrice d'adjacence
+    // Afficher la matrice d'adjacence
     matrixViz = d3.select("svg").append("g").attr("transform", "translate(70, 60)");
 
     matrixViz.selectAll()
@@ -152,7 +148,7 @@ d3.json("data/viewing_activity.json").then(function(json) {
         });
 
 
-
+    // Ajout des labels
     labels = d3.select("svg")
         .append("g")
         .attr("transform", "translate(70, 60)")
@@ -190,17 +186,18 @@ d3.json("data/viewing_activity.json").then(function(json) {
 
 });
 
+// Update de l'affichage du calendrier selon le profil 
 function update_visu1() {
 
     adjancencymatrix = myjson.filter(function(row) {
         return (row["ProfileName"] == user);
     });
 
-    // 3. Créer un domaine pour notre échelle
     max_weight = d3.max(adjancencymatrix, function(d) {
         return parseInt(d.TotalDuration);
     });
 
+    // Chargement de la palette selon le profil
     if (user == "Hana") {
         scale = d3.scaleSequential(d3.interpolateReds)
             .domain([0, max_weight]);
@@ -218,7 +215,7 @@ function update_visu1() {
     matrixViz.selectAll("rect")
         .data(adjancencymatrix)
         .join("rect")
-        .transition()
+        .transition() // Ajout d'un effet de transition
         .delay(function(d, i) {
             return i;
         })
@@ -243,12 +240,12 @@ function update_visu1() {
         .data(adjancencymatrix)
         .on('mousemove', function(e, d) {
             if (d.TotalDuration != 0) {
-                updateHover(e, d);
+                updateHover(e, d); // Mise à jour du tooltip
             }
         });
 }
 
-
+// Update de l'affichage de la légende selon le profil 
 async function updateLegend(colorSet, update = true) {
 
     if (update) {

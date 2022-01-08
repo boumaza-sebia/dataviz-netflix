@@ -9,23 +9,7 @@
 
     <title>Netflix data visualization</title>
     <link rel="icon" type="image/x-icon" href="img/netflix-windows-icon-17.png">
-    <style>
-        .hidden {
-            display: none;
-        }
-        
-        div.tooltip {
-            white-space: pre-wrap;
-            color: #222;
-            background-color: #fff;
-            padding: .5em;
-            text-shadow: #f5f5f5 0 1px 0;
-            border-radius: 2px;
-            opacity: 0.9;
-            position: absolute;
-        }
-    </style>
-
+    <link rel="stylesheet" href="css/stylesheet.css">
 </head>
 
 <body>
@@ -89,28 +73,27 @@
             <div class="col col-md-5 align-self-stretch">
                 <div class="row row-cols-1">
                     <div class="col" id="visu3"></div>
+                    <script src="js/visu3.js"></script>
                     <div class="col col-md-8 offset-2 mt-4 align-self-end border border-dark rounded text-center" style="margin-top: 100px;">
                         <p>
                             Il s'agit ici de représenter le temps de visionnage cumulé par les profils étudiés. Il permet notamment de distinger les fluctuations hebdomadaires communes aux deux utilisateurs.
                         </p>
                     </div>
                 </div>
-                <script src="js/visu3.js"></script>
             </div>
 
             <div class="col col-md-2 align-self-stretch">
                 <div class="row row-cols-1">
                     <div id="visu2"></div>
+                    <script src="js/visu2.js"></script>
                     <div class="col offset-1 mt-4 align-self-end border border-success rounded text-center" style="margin-top: 100px;">
                         <p>Ici, on s'intéresse à la répartition du temps de visionnage selon les appareils utilisés par chacun des profils</p>
                     </div>
                 </div>
-                <script src="js/visu2.js"></script>
             </div>
         </div>
 
         <footer class="footer-fluid bg-dark" id="footer" style="color: white;">
-
             <div class="row row-cols-3">
 
                 <div class="col text-center">
