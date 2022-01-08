@@ -40,7 +40,7 @@ const axisScale_visu1 = d3.scaleLinear()
     .range([width - barWidth_visu1 - 78, width - 78])
 
 const ticks = [0, 100];
-const tickLabels = ['Moins', 'Beaucoup']
+const tickLabels = ['Peu', 'Beaucoup']
 
 axisBottom_visu1 = g => g
     .attr("class", `x-axis`)
