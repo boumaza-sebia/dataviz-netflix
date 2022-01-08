@@ -12,6 +12,13 @@ const svg_visu2 = d3.select("#visu2")
     .append("g")
     .attr("transform", "translate(" + 100 + "," + 250 + ")");
 
+svg_visu2.append("text")
+    .attr("x", (radius / 2))
+    .attr("y", radius + 40)
+    .attr("text-anchor", "middle")
+    .style("font-size", "14px")
+    .text("Titre");
+
 //.attr("transform", `translate(${radius},${radius})`);
 
 const color = d3.scaleOrdinal()

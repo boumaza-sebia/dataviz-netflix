@@ -67,20 +67,27 @@ d3.csv("data/week_activity.csv").then(function(data) {
             .tickFormat(function(d, i) { return tickLabels[i] }));
 
 
-
+    svg_visu3.append("text")
+        .attr("x", (width_visu3 / 2))
+        .attr("y", height_visu3 + margin_visu3.bottom)
+        .attr("text-anchor", "middle")
+        .style("font-size", "14px")
+        .text("Titre");
 
     // Add X axis label:
     svg_visu3.append("text")
         .attr("text-anchor", "end")
-        .attr("x", width_visu3)
-        .attr("y", height_visu3 + 40)
+        .attr("x", width_visu3 + 40)
+        .attr("y", height_visu3 + 35)
+        .style("font-size", "12px")
         .text("Semaine");
 
     // Add Y axis label:
     svg_visu3.append("text")
         .attr("text-anchor", "end")
-        .attr("x", 0)
+        .attr("x", -40)
         .attr("y", -20)
+        .style("font-size", "12px")
         .text("Temps de visionnage (heures)")
         .attr("text-anchor", "start")
 

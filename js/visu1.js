@@ -10,6 +10,12 @@ var svg = d3.select("#visu1")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+svg.append("text")
+    .attr("x", (width / 2))
+    .attr("y", height - 80)
+    .attr("text-anchor", "middle")
+    .style("font-size", "14px")
+    .text("Titre");
 
 // 2 . Chargement des donnéels
 var myjson = {};
@@ -158,15 +164,15 @@ function update_visu1() {
 
     if (user == "Hana") {
         scale = d3.scaleSequential(d3.interpolateReds)
-        .domain([0, max_weight]);
+            .domain([0, max_weight]);
     } else if (user == "Tarik") {
         scale = d3.scaleSequential(d3.interpolateBlues)
-        .domain([0, max_weight]);
+            .domain([0, max_weight]);
     } else {
         scale = d3.scaleSequential(d3.interpolateGreys)
-        .domain([0, max_weight]);
+            .domain([0, max_weight]);
     }
-    
+
 
     matrixViz.selectAll("rect")
         .data(adjancencymatrix)

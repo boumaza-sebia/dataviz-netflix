@@ -55,13 +55,20 @@ function BubbleChart(data, {
     const svg = d3.select("#visu4")
         .append("svg")
         .attr("width", width)
-        .attr("height", height)
+        .attr("height", height + 150)
         .attr("viewBox", [-marginLeft, -marginTop, width, height])
         .attr("style", "max-width: 100%; height: auto; height: intrinsic;")
         .attr("fill", "currentColor")
         .attr("font-size", 10)
         .attr("font-family", "sans-serif")
         .attr("text-anchor", "middle");
+
+    svg.append("text")
+        .attr("x", (width / 2))
+        .attr("y", height + 30)
+        .attr("text-anchor", "middle")
+        .style("font-size", "14px")
+        .text("Titre");
 
     const leaf = svg.selectAll("a")
         .data(root.leaves())
