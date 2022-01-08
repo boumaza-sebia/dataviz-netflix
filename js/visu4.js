@@ -116,8 +116,7 @@ function BubbleChart(data, {
             .text(d => d);
     }
 
-    ///// LEGEND //////
-
+    // Légende
     margin = ({top: 20, right: 110, bottom: 30, left: 30})
 
     barHeight = 15
@@ -166,9 +165,10 @@ function BubbleChart(data, {
     return Object.assign(svg_visu4.node(), {scales: {color}});
 }
 
-
+// Chargement des données
 d3.json("data/favorites_color_level.json").then(function(data) {
     
+    // Sélection des contenus avec une durée de visionnage >= 1h 
     file = data.filter(function(row){
         return ((row["Duration"]/60|0) != 0);
     });
