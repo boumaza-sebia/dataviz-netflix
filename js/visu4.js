@@ -68,7 +68,7 @@ function BubbleChart(data, {
         .attr("y", height + 30)
         .attr("text-anchor", "middle")
         .style("font-size", "14px")
-        .text("Titre");
+        .text("Contenus visionnés par profil");
 
     const leaf = svg.selectAll("a")
         .data(root.leaves())

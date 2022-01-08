@@ -1,5 +1,5 @@
 // Definition de la taille du svg
-const margin = { top: 20, right: 20, bottom: 10, left: 20 },
+const margin = { top: 20, right: 20, bottom:0, left: 20 },
     width = 1600,
     height = 360;
 
@@ -15,7 +15,7 @@ svg.append("text")
     .attr("y", height - 80)
     .attr("text-anchor", "middle")
     .style("font-size", "14px")
-    .text("Titre");
+    .text("Calendrier de visionnage");
 
 // 2 . Chargement des donnéels
 var myjson = {};

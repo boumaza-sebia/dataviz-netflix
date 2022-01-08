@@ -29,10 +29,14 @@
 </head>
 
 <body>
-    <header class="pb-3 mb-4 border-bottom">
-        <a href="/" class="d-flex  text-dark text-decoration-none">
-            <span class=" text-danger fs-2">Netflix Data Visualisation </span>
+    <header class="pb-2 mb-4 border-bottom">
+        <a class="d-flex  text-dark text-decoration-none">
+            <span class=" text-danger fs-2"> Netflix Data Visualisation </span>
         </a>
+    </br>
+        <p class="text-start fw-light"> Ce travail vise à étudier les contenus visionnés par 
+            les développeurs de ce projet. Les données personnelles fournies par la plateforme
+            Netflix ont été utilisées. </p>
     </header>
 
     <div class="container-fluid">
@@ -48,7 +52,7 @@
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" onchange="update()" value="Both">
                         <label class="form-check-label" for="inlineRadio3">Both</label>
                     </div>
-                    
+
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" onchange="update()" value="Tarik">
                         <label class="form-check-label" for="inlineRadio2">Tarik</label>
@@ -56,12 +60,18 @@
                 </div>
             </div>
             <script src="js/utils.js"></script>
-            <div class="row justify-content-md-center">
-                <div class="col">
+            <div class="row">
+                <div class="col col-md-auto d-flex justify-content-center">
                     <br/>
-                    <div class="d-flex justify-content-center" id="visu1"></div>
+                    <div  id="visu1"></div>
                     <script src="data/week_days.js"></script>
                     <script src="js/visu1.js"></script>
+                </div>
+                <div class="col col-md-2 align-self-center border border-danger rounded text-center">
+                    <br/>
+                    <p> Ce calendrier représente le temps de visionnage quotidien entre le 06/04/2020
+                        et le 21/11/2021 par profil.
+                    </p>
                 </div>
             </div>
 
@@ -73,22 +83,57 @@
                 <script src="js/visu4.js"></script>
             </div>
 
-            <div class="col col-md-auto">
-                <div class="align-self-end" id="visu3"></div>
+            <div class="col col-md-auto align-self-stretch">
+                <div class="row row-cols-1">
+                    <div class="col" id="visu3"></div>
+                    <div class="col col-6 offset-md-2 mt-4 align-self-end border border-danger rounded text-center" style="margin-top: 100px;">
+                        <p> </p>
+                    </div>
+                </div>
                 <script src="js/visu3.js"></script>
             </div>
 
-            <div class="col col-md-3">
-                <div id="visu2"></div>
+            <div class="col col-md-2 align-self-stretch">
+                <div class="row row-cols-1">
+                    <div id="visu2"></div>
+                    <div class="col mt-4 align-self-end border border-danger rounded text-center" style="margin-top: 100px;">
+                        <p> Visualisation 2</p>
+                    </div>
+                </div>
                 <script src="js/visu2.js"></script>
             </div>
         </div>
+
+
+
+        <footer class="footer bg-dark" id="footer" style="color: white;">
+            
+            <div class="row row-cols-3">
+
+                <div class="text-center">
+                    <a href="https://github.com/boumaza-sebia/dataviz-netflix"> Github</a>
+                </div>
+
+                <div class="text-center">
+                    Développé par :
+                    </br>
+                    - <a href="mailto:hana.sebia@etu.univ-lyon1.fr"> Hana Sebia</a>
+                    </br>
+                    - <a href="mailto:tarik.boumaza@etu.univ-lyon1.fr"> Tarik Boumaza</a>
+                </div>
+                
+                <div class="text-center">
+                    Data Visualisation
+                    </br>
+                    <a href="https://www.univ-lyon1.fr"> Université Claude Bernard Lyon 1</a>
+                </div>
+
+            </div>
+
+        </footer>
     </div>
 
-
-
-
-
 </body>
+
 
 </html>

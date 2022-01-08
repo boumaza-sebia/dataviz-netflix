@@ -7,7 +7,7 @@ const margin_visu3 = { top: 100, right: 230, bottom: 50, left: 120 },
 const svg_visu3 = d3.select("#visu3")
     .append("svg")
     .attr("width", width_visu3 + margin_visu3.left + margin_visu3.right)
-    .attr("height", height_visu3 + margin_visu3.top + margin_visu3.bottom)
+    .attr("height", height_visu3 + margin_visu3.top + margin_visu3.bottom + 10)
     .append("g")
     .attr("transform",
         `translate(${margin_visu3.left}, ${margin_visu3.top})`);
@@ -72,7 +72,7 @@ d3.csv("data/week_activity.csv").then(function(data) {
         .attr("y", height_visu3 + margin_visu3.bottom)
         .attr("text-anchor", "middle")
         .style("font-size", "14px")
-        .text("Titre");
+        .text("Temps de visionnage cumulé hebdomadaire");
 
     // Add X axis label:
     svg_visu3.append("text")

@@ -13,11 +13,11 @@ const svg_visu2 = d3.select("#visu2")
     .attr("transform", "translate(" + 100 + "," + 250 + ")");
 
 svg_visu2.append("text")
-    .attr("x", (radius / 2))
+    .attr("x", radius)
     .attr("y", radius + 40)
     .attr("text-anchor", "middle")
     .style("font-size", "14px")
-    .text("Titre");
+    .text("Répartition du temps de visionnage par appareil");
 
 //.attr("transform", `translate(${radius},${radius})`);
 
