@@ -1,21 +1,51 @@
-// Definition de la taille du svg
+// Definition de la taille du svg_visu1
 const margin = { top: 20, right: 20, bottom: 10, left: 20 },
     width = 1600,
     height = 360;
 
-var svg = d3.select("#visu1")
+var svg_visu1 = d3.select("#visu1")
     .append("svg")
-    .attr("width", width)
+    .attr("width", width + 100)
     .attr("height", height)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-svg.append("text")
+svg_visu1.append("text")
     .attr("x", (width / 2))
     .attr("y", height - 80)
     .attr("text-anchor", "middle")
     .style("font-size", "14px")
     .text("Titre");
+
+
+///// Légende ////
+
+const barHeight_visu1 = 15
+const barWidth_visu1 = 200
+const legend_height_visu1 = -margin.bottom
+
+axisScale_visu1 = d3.scaleLinear()
+    .domain([0, 100])
+    .range([width - barWidth_visu1 + 20, width + 20])
+
+ticks = [0, 100];
+tickLabels = ['Moins', 'Beaucoup']
+
+axisBottom_visu1 = g => g
+    .attr("class", `x-axis`)
+    .attr("transform", `translate(0,${legend_height_visu1})`)
+    .style("font-size", "12px")
+    .call(d3.axisBottom(axisScale_visu1)
+        .tickSize(3)
+        .tickValues(ticks)
+        .tickFormat(function(d, i) { return tickLabels[i] }));
+
+svg_visu1.append('g')
+    .call(axisBottom_visu1);
+
+updateLegend(d3.interpolateReds, false)
+
+
 
 // 2 . Chargement des donnéels
 var myjson = {};
@@ -165,14 +195,16 @@ function update_visu1() {
     if (user == "Hana") {
         scale = d3.scaleSequential(d3.interpolateReds)
             .domain([0, max_weight]);
+        updateLegend(d3.interpolateReds)
     } else if (user == "Tarik") {
         scale = d3.scaleSequential(d3.interpolateBlues)
             .domain([0, max_weight]);
+        updateLegend(d3.interpolateBlues)
     } else {
         scale = d3.scaleSequential(d3.interpolateGreys)
             .domain([0, max_weight]);
+        updateLegend(d3.interpolateGreys)
     }
-
 
     matrixViz.selectAll("rect")
         .data(adjancencymatrix)
@@ -205,4 +237,36 @@ function update_visu1() {
                 updateHover(e, d);
             }
         });
+}
+
+
+async function updateLegend(colorSet, update = true) {
+
+    if (update) {
+        await new Promise(resolve => setTimeout(resolve, 800));
+    }
+
+    colorScale_visu1 = d3.scaleSequential(colorSet).domain([0, 100])
+
+    axisScale_visu1 = d3.scaleLinear()
+        .domain([0, 100])
+        .range([width - barWidth_visu1 + 20, width + 20])
+
+    svg_visu1.selectAll("defs").remove("defs");
+
+    svg_visu1.append("defs").append("linearGradient")
+        .attr("id", "linear-gradient-visu1")
+        .selectAll("stop")
+        .data(colorScale_visu1.ticks().map((t, i, n) => ({ offset: `${100*i/n.length}%`, color: colorScale_visu1(t) })))
+        .enter().append("stop")
+        .attr("offset", d => d.offset)
+        .attr("stop-color", d => d.color);
+
+    svg_visu1.append('g')
+        .attr("transform", `translate(0,${legend_height_visu1 - barHeight_visu1})`)
+        .append("rect")
+        .attr('transform', `translate(${width - barWidth_visu1 + 20}, 0)`)
+        .attr("width", barWidth_visu1)
+        .attr("height", barHeight_visu1)
+        .style("fill", "url(#linear-gradient-visu1)");
 }
