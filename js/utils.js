@@ -1,7 +1,7 @@
 // Visualisation 1
 // Selection de l'utilisateur
 var user = "Hana"
-
+document.getElementById("inlineRadio1").checked = true;
 
 function update() {
     user = Array.from(document.getElementsByName("inlineRadioOptions")).find(r => r.checked).value;
