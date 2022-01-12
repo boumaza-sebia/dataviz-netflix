@@ -13,18 +13,11 @@ const svg_visu2 = d3.select("#visu2")
 
 // ajout titre
 svg_visu2.append("text")
-    .attr("x", radius - 150)
-    .attr("y", radius + 40)
-    .attr("text-anchor", "middle")
-    .style("font-size", "15px")
-    .style("text-decoration", "underline")
-    .text("Figure 4");
-svg_visu2.append("text")
-    .attr("x", radius + 45)
+    .attr("x", radius)
     .attr("y", radius + 40)
     .attr("text-anchor", "middle")
     .style("font-size", "14px")
-    .text(": Répartition du temps de visionnage par appareil");
+    .text("Répartition du temps de visionnage par appareil");
 
 //choix des couleurs
 const color = d3.scaleOrdinal()
@@ -47,7 +40,7 @@ d3.json("data/device_type.json").then(function(json) {
     arcGenerator = d3.arc()
         .innerRadius(0)
         .outerRadius(radius)
-    //dessin
+        //dessin
     svg_visu2.selectAll(null)
         .data(data_plot_visu2)
         .join('path')
@@ -89,11 +82,12 @@ d3.json("data/device_type.json").then(function(json) {
         .data(data_plot_visu2)
         .enter()
         .append('text')
-        .text(function(d){ 
+        .text(function(d) {
             if (Math.round(d.data[1]) > 0) {
-                return Math.round(d.data[1] / 60) + "h"}
-            })
-        .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
+                return Math.round(d.data[1] / 60) + "h"
+            }
+        })
+        .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")"; })
         .style("text-anchor", "middle")
         .style("font-size", 10)
 });
@@ -111,8 +105,8 @@ async function update_visu2() {
     await new Promise(resolve => setTimeout(resolve, 800));
 
     arcGenerator = d3.arc()
-                    .innerRadius(0)
-                    .outerRadius(radius)
+        .innerRadius(0)
+        .outerRadius(radius)
 
     //dessin du nouveau chart
     svg_visu2.selectAll(null)
@@ -123,17 +117,18 @@ async function update_visu2() {
         .attr("stroke", "black")
         .style("stroke-width", "0.3px")
         .style("opacity", 1)
-    
+
     //mise à jour du texte
     svg_visu2.selectAll('mySlices')
         .data(data_plot_visu2)
         .enter()
         .append('text')
-        .text(function(d){ 
+        .text(function(d) {
             if (Math.round(d.data[1]) > 0) {
-                return Math.round(d.data[1] / 60) + "h"}
-            })
-        .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
+                return Math.round(d.data[1] / 60) + "h"
+            }
+        })
+        .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")"; })
         .style("text-anchor", "middle")
         .style("font-size", 10)
 
