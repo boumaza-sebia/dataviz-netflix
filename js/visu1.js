@@ -13,21 +13,12 @@ var svg_visu1 = d3.select("#visu1")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-// Ajout du titre
 svg_visu1.append("text")
-    .attr("x", (width / 2) - 60)
-    .attr("y", height - 80)
-    .attr("text-anchor", "middle")
-    .style("font-size", "15px")
-    .style("text-decoration", "underline")
-    .text("Figure 1 ");
-
-svg_visu1.append("text")
-    .attr("x", (width / 2) + 60)
+    .attr("x", (width / 2))
     .attr("y", height - 80)
     .attr("text-anchor", "middle")
     .style("font-size", "14px")
-    .text(": Calendrier de visionnage");
+    .text("Calendrier de visionnage quotidien entre le 06/04/2020 et le 21/11/2021 par profil");
 
 
 // Légende 
@@ -74,7 +65,7 @@ function updateHover(e, d) {
         .attr('style', 'left:' + (mousePosition[0] + 15) +
             'px; top:' + (mousePosition[1] - 35) + 'px')
         // on recupere le nom de l'etat
-    .html(title);
+        .html(title);
 }
 
 // Chargement des données
@@ -104,13 +95,13 @@ d3.json("data/viewing_activity.json").then(function(json) {
         .domain([0, max_weight]);
 
     echellex = d3.scaleBand()
-        .range([0, width - 100]) 
+        .range([0, width - 100])
         .domain(d3.range(week_days.length))
         .paddingInner(0.15)
         .round(true);
 
     echelley = d3.scaleBand()
-        .range([0, height - 150]) 
+        .range([0, height - 150])
         .domain(d3.range(7))
         .paddingInner(0.15)
         .align(0)
