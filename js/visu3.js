@@ -64,7 +64,7 @@ d3.csv("data/week_activity.csv").then(function(data) {
         .text("Semaine");
 
     /*** Axe Y ***/
-    let max_value = d3.max(data, function(d) { return (parseInt(d["Both"]) + parseInt(d["Hana"]) + parseInt(d["Tarik"])); })
+    let max_value = d3.max(data, function(d) { return (parseInt(d["Together"]) + parseInt(d["Hana"]) + parseInt(d["Tarik"])); })
     const y = d3.scaleLinear()
         .domain([0, max_value])
         .range([height_visu3, 0]);
