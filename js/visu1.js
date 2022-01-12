@@ -31,21 +31,8 @@ const axisScale_visu1 = d3.scaleLinear()
     .range([width - barWidth_visu1 - 78, width - 78])
 
 const ticks = [0, 100];
-const tickLabels = ['Peu', 'Beaucoup']
 
-axisBottom_visu1 = g => g
-    .attr("class", `x-axis`)
-    .attr("transform", `translate(0,${legend_height_visu1})`)
-    .style("font-size", "12px")
-    .call(d3.axisBottom(axisScale_visu1)
-        .tickSize(3)
-        .tickValues(ticks)
-        .tickFormat(function(d, i) { return tickLabels[i] }));
-
-svg_visu1.append('g')
-    .call(axisBottom_visu1);
-
-updateLegend(d3.interpolateReds, false)
+//updateLegend(d3.interpolateReds, max_weight, false)
 
 
 // ajout d'un tooltip
@@ -175,6 +162,13 @@ d3.json("data/viewing_activity.json").then(function(json) {
         .attr("dx", 3)
         .attr("transform", "rotate(-90)"); // on tourne tout l'axe de 90°*/
 
+    if (user == "Hana") {
+        updateLegend(d3.interpolateReds, max_weight)
+    } else if (user == "Tarik") {
+        updateLegend(d3.interpolateBlues, max_weight)
+    } else {
+        updateLegend(d3.interpolateGreys, max_weight)
+    }
 });
 
 // Update de l'affichage du calendrier selon le profil 
@@ -192,15 +186,15 @@ function update_visu1() {
     if (user == "Hana") {
         scale = d3.scaleSequential(d3.interpolateReds)
             .domain([0, max_weight]);
-        updateLegend(d3.interpolateReds)
+        updateLegend(d3.interpolateReds, max_weight)
     } else if (user == "Tarik") {
         scale = d3.scaleSequential(d3.interpolateBlues)
             .domain([0, max_weight]);
-        updateLegend(d3.interpolateBlues)
+        updateLegend(d3.interpolateBlues, max_weight)
     } else {
         scale = d3.scaleSequential(d3.interpolateGreys)
             .domain([0, max_weight]);
-        updateLegend(d3.interpolateGreys)
+        updateLegend(d3.interpolateGreys, max_weight)
     }
 
     matrixViz.selectAll("rect")
@@ -237,7 +231,7 @@ function update_visu1() {
 }
 
 // Update de l'affichage de la légende selon le profil 
-async function updateLegend(colorSet, update = true) {
+async function updateLegend(colorSet, max_weight, update = true) {
 
     if (update) {
         await new Promise(resolve => setTimeout(resolve, 800));
@@ -246,6 +240,7 @@ async function updateLegend(colorSet, update = true) {
     colorScale_visu1 = d3.scaleSequential(colorSet).domain([0, 100])
 
     svg_visu1.selectAll("defs").remove("defs");
+    svg_visu1.selectAll("g").remove("legend-text");
 
     svg_visu1.append("defs").append("linearGradient")
         .attr("id", "linear-gradient-visu1")
@@ -262,4 +257,19 @@ async function updateLegend(colorSet, update = true) {
         .attr("width", barWidth_visu1)
         .attr("height", barHeight_visu1)
         .style("fill", "url(#linear-gradient-visu1)");
+
+    const tickLabels = ["0min", printMovie("", max_weight, "")]
+
+    axisBottom_visu1 = g => g
+        .attr("class", `x-axis`)
+        .attr("transform", `translate(0,${legend_height_visu1})`)
+        .style("font-size", "12px")
+        .call(d3.axisBottom(axisScale_visu1)
+            .tickSize(3)
+            .tickValues(ticks)
+            .tickFormat(function(d, i) { return tickLabels[i] }));
+
+    svg_visu1.append('g')
+        .attr("class", "legend-text")
+        .call(axisBottom_visu1);
 }
