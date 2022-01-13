@@ -124,7 +124,7 @@ function BubbleChart(data, {
         .range([margin.left, barWidth - margin.right])
     
     const ticks = [0,50,100];
-    const tickLabels = ['Hana','Both','Tarik']
+    const tickLabels = ['Hana','Together','Tarik']
 
     axisBottom = g => g
         .attr("class", `x-axis`)
