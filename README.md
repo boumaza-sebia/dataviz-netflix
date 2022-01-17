@@ -1,6 +1,6 @@
 # [Netflix Data Visualization]([https://boumaza-sebia.github.io/dataviz-netflix/](https://boumaza-sebia.github.io/dataviz-netflix/))
 
-<img src="https://raw.githubusercontent.com/wiki/boumaza-sebia/dataviz-netflix/img/netflix-dataviz.png" width="500" height="300" />
+<img src="https://raw.githubusercontent.com/wiki/boumaza-sebia/dataviz-netflix/img/teaser.png" width="500" height="300" />
 
 ### Table of contents
 
